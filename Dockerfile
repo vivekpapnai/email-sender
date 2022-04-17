@@ -8,9 +8,9 @@ COPY go.sum /server/
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -o /go/bin/create-zip
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=readonly -o /go/bin/emailSender
 
 FROM scratch
-COPY --from=builder /go/bin/uploadCSV /go/bin/create-zip
-EXPOSE 8080
-ENTRYPOINT ["/go/bin/create-zip"]
+COPY --from=builder /go/bin/emailSender /go/bin/emailSender
+EXPOSE 8081
+ENTRYPOINT ["/go/bin/emailSender"]

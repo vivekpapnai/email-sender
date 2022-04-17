@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-sender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: email-sender-gke
+  template:
+    metadata:
+      labels:
+        app: email-sender-gke
+    spec:
+      containers:
+        - name: app
+          image: us-central1-docker.pkg.dev/pelagic-chalice-346307/email-sender/email-sender-image:latest
+          imagePullPolicy: Always
